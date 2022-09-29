@@ -41,10 +41,10 @@ int main(int argc, char *argv[])
 		printf("\n");
 		printf("EXAMPLE:\n");
 		printf("  cmd2env.exe getdrv.exe\n");
-		printf("  call %TEMP%\_cmd2env.bat\n");
+		printf("  call %%TEMP%%\\_cmd2env.bat\n");
 		printf("  A:\n");
 		printf("  setup.exe\n");
-		printf("  %__CMD2ENV%:\n");
+		printf("  %%__CMD2ENV%%:\n");
 		printf("  set __CMD2ENV=\n");
 		exit( 0 );
 	}
