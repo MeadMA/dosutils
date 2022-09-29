@@ -38,6 +38,14 @@ int main(int argc, char *argv[])
 		printf("CMD2ENV [command]\n");
 		printf("\n");
 		printf("  command     The command to run and capture output from\n");
+		printf("\n");
+		printf("EXAMPLE:\n");
+		printf("  cmd2env.exe getdrv.exe\n");
+		printf("  call %TEMP%\_cmd2env.bat\n");
+		printf("  A:\n");
+		printf("  setup.exe\n");
+		printf("  %__CMD2ENV%:\n");
+		printf("  set __CMD2ENV=\n");
 		exit( 0 );
 	}
 
