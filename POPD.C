@@ -27,18 +27,35 @@
 int main(int argc, char *argv[])
 {
 	FILE *infile;
-	char *tempfile, *olddir, *drive;
+	char tempfile[255], *olddir, *lastchar, helpchk[2];
+
+	strcpy( helpchk, "/?" );
+
+	if ( strcmp( argv[1], helpchk ) == 0 ) {
+		printf("Returns to the directory saved by PUSHD\n");
+		printf("\n");
+		printf("POPD\n");
+		exit( 0 );
+	}
 
 	// Get TEMP folder
-	// Order of precedence: TEMP var, TMP var, C:\
-	tempfile = getenv( "TEMP" );
-	if ( tempfile == NULL )
+	// Order of precedence: TEMP var, TMP var
+	strcpy( tempfile, getenv( "TEMP" ) );
+	if ( strlen(tempfile) == 0 )
 	{
-		tempfile = getenv( "TMP" );
+		strcpy( tempfile, getenv( "TMP" ) );
 	}
-	if ( tempfile == NULL )
+	if ( strlen(tempfile) == 0 )
 	{
-		tempfile = "C:\\";
+		printf( "ERROR: Must set either TEMP or TMP variable\n" );
+		exit( 2 );
+	}
+
+	// Make sure path ends with backslash
+	lastchar = &tempfile[strlen(tempfile)-1];
+	if ( strcmp(lastchar, "\\") != 0 )
+	{
+		strcat( tempfile, "\\" );
 	}
 
 	// Append temp filename

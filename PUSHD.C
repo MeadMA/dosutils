@@ -27,8 +27,8 @@
 int main(int argc, char *argv[])
 {
 	FILE *outfile;
-	char *tempfile, *cwd, *helpchk;
-	helpchk = "/?";
+	char tempfile[255], *cwd, helpchk[2], *lastchar;
+	strcpy( helpchk, "/?" );
 
 	if ( argc == 1 || strcmp( argv[1], helpchk ) == 0 ) {
 		printf("Saves the current working directory, and changes to the specified\n");
@@ -41,15 +41,23 @@ int main(int argc, char *argv[])
 	}
 
 	// Get TEMP folder
-	// Order of precedence: TEMP var, TMP var, C:\
-	tempfile = getenv( "TEMP" );
-	if ( tempfile == NULL )
+	// Order of precedence: TEMP var, TMP var
+	strcpy( tempfile, getenv( "TEMP" ) );
+	if ( strlen(tempfile) == 0 )
 	{
-		tempfile = getenv( "TMP" );
+		strcpy( tempfile, getenv( "TMP" ) );
 	}
-	if ( tempfile == NULL )
+	if ( strlen(tempfile) == 0 )
 	{
-		tempfile = "C:\\";
+		printf( "ERROR: Must set either TEMP or TMP variable\n" );
+		exit( 2 );
+	}
+
+	// Make sure path ends with backslash
+	lastchar = &tempfile[strlen(tempfile)-1];
+	if ( strcmp(lastchar, "\\") != 0 )
+	{
+		strcat( tempfile, "\\" );
 	}
 
 	// Append temp filename
